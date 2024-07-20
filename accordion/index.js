@@ -26,7 +26,6 @@ const data = [
   },
 ];
 $(document).ready(() => {
-
   const accordionWrapper = $(".accordion-wrapper");
 
   $.each(data, function (index, item) {
@@ -46,11 +45,24 @@ $(document).ready(() => {
     accordionItem.append(accordionItemContent);
     accordionWrapper.append(accordionItem);
   });
-  $(".accordion-item:first-child").find('.accordion-item-content').removeClass('hide');
-  $(".accordion-item:first-child").find('.dropdown-icon').toggleClass("rotate-180");
-    $(".dropdown-icon").click(function () {
-      $('.accordion-item-content').addClass('hide');
-    $(this).toggleClass("rotate-180");
-    $(this).parent().siblings(".accordion-item-content").toggleClass("hide");
+
+  $(".accordion-item:first-child")
+    .find(".accordion-item-content")
+    .removeClass("hide");
+  $(".accordion-item:first-child")
+    .find(".dropdown-icon")
+    .removeClass("rotate-180");
+  console.log($(".accordion-item:first-child"));
+  $(".accordion-item-header").click(function () {
+    $(this).find("svg").toggleClass("rotate-180");
+
+    $(this).siblings(".accordion-item-content").toggleClass("hide");
+    $(".accordion-item-content")
+      .not($(this).siblings(".accordion-item-content"))
+      .addClass("hide");
+    $(".accordion-item-header")
+      .not($(this))
+      .find("svg")
+      .removeClass("rotate-180");
   });
 });
